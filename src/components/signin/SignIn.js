@@ -4,7 +4,8 @@ class SignIn extends Component {
         super();
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            error: ""
         }
     }
     onEmailChange = (event) => {
@@ -24,9 +25,12 @@ class SignIn extends Component {
         })
         .then(response => response.json())
         .then(user => {
+            console.log(user);
             if (user.id) {
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
+            } else {
+                this.setState({ error: 'wrong credentials'} );
             }
         })
         .catch(err => console.log(err))
@@ -51,6 +55,13 @@ class SignIn extends Component {
                     <div className="">
                     <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f4 dib" type="submit" value="Sign in" onClick={ this.onSubmitSignIn }/>
                     </div>
+                    {
+                        (this.state.error==='wrong credentials')
+                        ? <small className="f5 red b" id="comment-desc">
+                          Wrong credentials
+                          </small>
+                        : <></>
+                    }
                     <div className="lh-copy mt3">
                     <p onClick={ () => onRouteChange('register') } className="f4 link dim black db underline pointer">Register</p>
                     </div>
