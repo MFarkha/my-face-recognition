@@ -7,6 +7,7 @@ class Register extends React.Component {
             firstname: '',
             email: '',
             password: '',
+            error: ''
         }
     }
     onEmailChange = (event) => {
@@ -30,13 +31,17 @@ class Register extends React.Component {
         })
         .then(response => response.json())
         .then(user => {
-            // console.log(user);
-            if (user) {
+            if (user.id) {
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
+            } else {
+                this.setState({ error: 'unable to register' } );
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            // console.log(err);
+            this.setState({ error: 'unable to register' } );
+        })
     }
     render() {
         return (
@@ -58,6 +63,13 @@ class Register extends React.Component {
                         <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={ this.onPasswordChange }/>
                     </div>
                     </fieldset>
+                    {
+                        (this.state.error.length!==0)
+                        ? <small className="f5 red b" id="comment-desc">
+                          ${this.state.error}
+                          </small>
+                        : <></>
+                    }
                     <div className="">
                     <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f4 dib" type="submit" value="Register" onClick={ this.onSubmitRegister }/>
                     </div>

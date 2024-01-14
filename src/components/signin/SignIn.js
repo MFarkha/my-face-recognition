@@ -30,10 +30,13 @@ class SignIn extends Component {
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
             } else {
-                this.setState({ error: 'wrong credentials'} );
+                this.setState({ error: 'wrong credentials' } );
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err);
+            this.setState({ error: 'wrong credentials' } );
+        })
     }
     render() {
         const { onRouteChange } = this.props;
