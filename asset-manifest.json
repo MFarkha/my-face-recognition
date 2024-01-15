@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/MFarkha/my-face-recognition/static/css/main.f4380719.css",
+    "main.js": "/MFarkha/my-face-recognition/static/js/main.a46111a5.js",
+    "static/js/496.14f120e1.chunk.js": "/MFarkha/my-face-recognition/static/js/496.14f120e1.chunk.js",
+    "index.html": "/MFarkha/my-face-recognition/index.html",
+    "main.f4380719.css.map": "/MFarkha/my-face-recognition/static/css/main.f4380719.css.map",
+    "main.a46111a5.js.map": "/MFarkha/my-face-recognition/static/js/main.a46111a5.js.map",
+    "496.14f120e1.chunk.js.map": "/MFarkha/my-face-recognition/static/js/496.14f120e1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f4380719.css",
+    "static/js/main.a46111a5.js"
+  ]
+}
