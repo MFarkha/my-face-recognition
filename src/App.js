@@ -40,39 +40,7 @@ class App extends Component {
       }
     })
   }
-  setupClarifai = (imageUrl) => {
-    const PAT = '8e814405291e431ab755b4e1a34acf90';
-    // Specify the correct user_id/app_id pairings
-    // Since you're making inferences outside your app's scope
-    const USER_ID = 'famaten';
-    const APP_ID = 'my-smart-brain-app';
-    const MODEL_ID = 'face-detection';
-    const IMAGE_URL = imageUrl;
-    const raw = JSON.stringify({
-      "user_app_id": {
-          "user_id": USER_ID,
-          "app_id": APP_ID
-      },
-      "inputs": [
-          {
-              "data": {
-                  "image": {
-                      "url": IMAGE_URL
-                  }
-              }
-          }
-      ]
-    });
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Key ' + PAT
-        },
-        body: raw
-    };
-    return [requestOptions, MODEL_ID]
-  }
+  
   calcFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
@@ -92,14 +60,22 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
   onImageSubmit = () => {
-    this.setState({imageUrl: this.state.input});
-    const [OPTIONS, MODEL_ID] = this.setupClarifai(this.state.input);
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", OPTIONS)
+    const imageUrl = this.state.input;
+    this.setState({ imageUrl });
+    fetch("http://localhost:3001/imageurl/", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        imageUrl: imageUrl
+      })
+    })
     .then(response => response.json())
     .then(result => {
       if (result) {
         this.imageEntriesUpdate();
         this.displayFaceBox(this.calcFaceLocation(result));
+      } else {
+        console.log('error making api call');
       }
     })
     .catch(error => console.log('error', error));
