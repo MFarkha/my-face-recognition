@@ -19,7 +19,10 @@ class Register extends React.Component {
     onFirstNameChange = (event) => {
         this.setState({firstname: event.target.value})
     }
-    onSubmitRegister = () => {
+    onSubmitRegister = (e) => {
+        if ((e.code) && e.code!=='Enter') {
+            return
+        }
         fetch(`${process.env.REACT_APP_BACKEND_URL}/register/`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -60,7 +63,7 @@ class Register extends React.Component {
                     </div>
                     <div className="mv3">
                         <label className="db fw6 lh-copy f4" htmlFor="password">Password</label>
-                        <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={ this.onPasswordChange }/>
+                        <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={ this.onPasswordChange } onKeyDown={ this.onSubmitRegister }/>
                     </div>
                     </fieldset>
                     {

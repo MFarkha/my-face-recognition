@@ -63,7 +63,10 @@ class App extends Component {
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
   }
-  onImageSubmit = () => {
+  onImageSubmit = (e) => {
+    if ((e.code) && e.code!== 'Enter') {
+      return
+    }
     const imageUrl = this.state.input;
     this.setState({ imageUrl });
     fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl/`, {
