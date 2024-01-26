@@ -20,7 +20,7 @@ class Register extends React.Component {
         this.setState({firstname: event.target.value})
     }
     onSubmitRegister = () => {
-        fetch('http://localhost:3001/register/', {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/register/`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

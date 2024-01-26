@@ -8,11 +8,12 @@ import FaceRecognition from './components/facerecognition/FaceRecognition';
 import { Component } from 'react';
 import SignIn from './components/signin/SignIn';
 import Register from './components/register/Register';
+import ErrorBoundary from './components/errorboundary/ErrorBoundary';
 
 const initialState =  {
   input: '',
   imageUrl: '',
-  box: {},
+  boxes: [],
   route: 'signin',
   isSignedIn: false,
   user: {
@@ -40,29 +41,32 @@ class App extends Component {
       }
     })
   }
-  
   calcFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputImage');
-    const width = Number(image.width);
-    const height = Number(image.height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
-    }
+    const faceRegions = data.outputs[0].data.regions;
+    const boxes = faceRegions.map((region) => {
+      const clarifaiFace = region.region_info.bounding_box;
+      const image = document.getElementById('inputImage');
+      const width = Number(image.width);
+      const height = Number(image.height);
+      return {
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * height,
+        rightCol: width - (clarifaiFace.right_col * width),
+        bottomRow: height - (clarifaiFace.bottom_row * height)
+      }
+    });
+    return boxes;
   }
-  displayFaceBox = (box) => {
-    this.setState( {box} );
+  displayFaceBox = (boxes) => {
+    this.setState({ boxes });
   }
   onInputChange = (event) => {
-    this.setState({input: event.target.value});
+    this.setState({ input: event.target.value });
   }
   onImageSubmit = () => {
     const imageUrl = this.state.input;
     this.setState({ imageUrl });
-    fetch("http://localhost:3001/imageurl/", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl/`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -75,13 +79,13 @@ class App extends Component {
         this.imageEntriesUpdate();
         this.displayFaceBox(this.calcFaceLocation(result));
       } else {
-        console.log('error making api call');
+        console.log('error: empty result received from api service');
       }
     })
-    .catch(error => console.log('error', error));
+    .catch(error => console.log('error making api call'));
   }
   imageEntriesUpdate = () => {
-    fetch('http://localhost:3001/image/', {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/image/`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -94,7 +98,7 @@ class App extends Component {
           this.setState(Object.assign(this.state.user, { entries: data }));
         }
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log('unable to update entries count'))
   }
   onRouteChange = (route) => {
     if (route === 'signout') {
@@ -105,7 +109,7 @@ class App extends Component {
     this.setState({route});
   }
   render() {
-    const {isSignedIn, imageUrl, box, route, user} = this.state;
+    const { isSignedIn, imageUrl, boxes, route, user } = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
@@ -113,9 +117,12 @@ class App extends Component {
         { route === 'home'
           ? <div>
               <Logo />
-              <Rank entries={ user.entries } firstname={ user.firstname } />
-              <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onImageSubmit}/>
-              <FaceRecognition box={box} imageUrl={imageUrl}/>
+              <ErrorBoundary>
+                <Rank entries={ user.entries } firstname={ user.firstname } />
+                <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onImageSubmit}/>
+                <FaceRecognition boxes={boxes} imageUrl={imageUrl}/>
+              </ErrorBoundary>
+
             </div>
           : (
               route === 'signin'

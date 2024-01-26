@@ -14,8 +14,12 @@ class SignIn extends Component {
     onPasswordChange = (event) => {
         this.setState({password: event.target.value})
     }
-    onSubmitSignIn = () => {
-        fetch('http://localhost:3001/signin/', {
+    
+    onSubmitSignIn = (e) => {
+        if ((e.code) && e.code!== 'Enter') {
+            return
+        }
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/signin/`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -51,7 +55,7 @@ class SignIn extends Component {
                     </div>
                     <div className="mv3">
                         <label className="db fw6 lh-copy f4" htmlFor="password">Password</label>
-                        <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={ this.onPasswordChange }/>
+                        <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={ this.onPasswordChange } onKeyDown={ this.onSubmitSignIn }/>
                     </div>
                     </fieldset>
                     <div className="">
@@ -65,7 +69,9 @@ class SignIn extends Component {
                         : <></>
                     }
                     <div className="lh-copy mt3">
-                    <p onClick={ () => onRouteChange('register') } className="f4 link dim black db underline pointer">Register</p>
+                    <p onClick={ () => onRouteChange('register') }
+                        className="f4 link dim black db underline pointer">Register
+                    </p>
                     </div>
                 </div>
             </main>
