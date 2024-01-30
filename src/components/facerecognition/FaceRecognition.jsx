@@ -9,7 +9,7 @@ const FaceRecognition = ({ imageUrl, boxes }) => {
                 {
                     boxes.map((box, index) => {
                         return (
-                            <div id={index} className="bounding-box" style={{top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol}}></div>
+                            <div key={index} id={index} className="bounding-box" style={{top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol}}></div>
                         )
                     })
                 }

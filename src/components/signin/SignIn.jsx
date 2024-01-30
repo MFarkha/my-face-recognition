@@ -28,9 +28,10 @@ class SignIn extends Component {
             })
         })
         .then(response => response.json())
-        .then(user => {
-            if (user.id) {
-                this.props.loadUser(user);
+        .then(data => {
+            if (data.userId && data.success==='true') {
+                this.props.saveAuthTokenInSession(data.token);
+                this.props.fetchUser(data.userId, data.token);
                 this.props.onRouteChange('home');
             } else {
                 this.setState({ error: 'wrong credentials' } );
