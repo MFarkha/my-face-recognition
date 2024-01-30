@@ -55,21 +55,25 @@ class Register extends React.Component {
                     <legend className="f2 fw6 ph0 mh0">Register</legend>
                     <div className="mt3">
                         <label className="db fw6 lh-copy f4" htmlFor="firstName">First Name</label>
-                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="firstName" id="firstName" onChange={ this.onFirstNameChange }/>
+                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                            type="text" name="firstName" id="firstName" onChange={ this.onFirstNameChange }/>
                     </div>
                     <div className="mt3">
                         <label className="db fw6 lh-copy f4" htmlFor="email-address">Email</label>
-                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" onChange={ this.onEmailChange }/>
+                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                            type="email" name="email-address"  id="email-address" onChange={ this.onEmailChange }/>
                     </div>
                     <div className="mv3">
                         <label className="db fw6 lh-copy f4" htmlFor="password">Password</label>
-                        <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={ this.onPasswordChange } onKeyDown={ this.onSubmitRegister }/>
+                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                            type="password" name="password"  id="password" onChange={ this.onPasswordChange }
+                                onKeyDown={ this.onSubmitRegister }/>
                     </div>
                     </fieldset>
                     {
                         this.state.error && 
                             (<small className="f5 red b" id="comment-desc">
-                                { this.state.error}
+                                { this.state.error }
                             </small>)
                     }
                     <div className="">

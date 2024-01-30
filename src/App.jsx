@@ -43,23 +43,27 @@ class App extends Component {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer: ${token}`
-        },
-      })
+        }
+        })
         .then(response => response.json())
         .then(data => {
-          return this.fetchUser(data.userId, token)
+          if (data.userId) {
+            this.fetchUser(data.userId, token);
+          } else {
+            throw new Error(`An error receiving the user id`);
+          }
         })
-        .catch(err => console.log('error sending authorization token'));
+        .catch(console.log);
     }
   }
   fetchUser = (userId, token) => {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/${userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer: ${token}`
       },
-    })
+      })
       .then(resp => resp.json())
       .then(user => {
         if (user && user.email) {
@@ -123,17 +127,17 @@ class App extends Component {
       body: JSON.stringify({
         imageUrl: imageUrl
       })
-    })
+      })
       .then(response => response.json())
       .then(result => {
         if (result) {
           this.imageEntriesUpdate();
           this.displayFaceBox(this.calcFaceLocation(result));
         } else {
-          console.log('error: empty result received from api service');
+          console.log('error: an empty result received from api service');
         }
       })
-      .catch(error => console.log('error making api call'));
+      .catch(error => console.log('error making api call:'));
   }
   imageEntriesUpdate = () => {
     const token = window.sessionStorage.getItem('token');
@@ -146,7 +150,7 @@ class App extends Component {
       body: JSON.stringify({
         id: this.state.user.id
       })
-    })
+      })
       .then(response => response.json())
       .then(data => {
           if (data) {
@@ -155,15 +159,35 @@ class App extends Component {
       })
       .catch(err => console.log('unable to update entries count'))
   }
+  handleSignOut = () => {
+    const token = window.sessionStorage.getItem('token');
+    if (token) {
+      return fetch(`${process.env.REACT_APP_BACKEND_URL}/signout/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer: ${token}`
+        },
+        })
+        .then(response => response.json())
+        .then((data) => {
+          if (data.success) {
+            return window.sessionStorage.clear();
+          } else {
+            throw new Error();
+          }
+        })
+        .catch(err => console.log('A sign out error'));
+    }
+  }
   onRouteChange = (route) => {
     if (route === 'signout') {
-      window.sessionStorage.clear();
-      
+      this.handleSignOut();
       return this.setState(initialState);
     } else if (route === 'home') {
-      this.setState({isSignedIn: true});
+      this.setState({ isSignedIn: true });
     }
-    this.setState({route});
+    this.setState({ route });
   }
   toggleModal = () => {
     this.setState(prevState => ({
@@ -180,7 +204,8 @@ class App extends Component {
           toggleModal={this.toggleModal}/>
         { isProfileOpen && 
             <Modal>
-              <Profile user={user} isProfileOpen={isProfileOpen} toggleModal={this.toggleModal} loadUser={this.loadUser}/>
+              <Profile user={user} isProfileOpen={isProfileOpen}
+                toggleModal={this.toggleModal} loadUser={this.loadUser}/>
             </Modal>
         }
         { route === 'home'
