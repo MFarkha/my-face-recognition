@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Profile container correctly for a given user 1`] = `
+<div>
+  <div
+    class="profile-modal"
+  >
+    <article
+      class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center bg-white"
+    >
+      <main
+        class="pa4 black-80 w-80"
+      >
+        <img
+          alt="avatar"
+          class="h3 w3 dib"
+          src="profile.png"
+        />
+        <h1>
+          John
+        </h1>
+        <h4>
+          Images submitted: 23
+        </h4>
+        <p>
+          Member since: 1/24/2023
+        </p>
+        <label
+          class="mt-2 fw-6"
+          for="user-name"
+        >
+          First Name
+        </label>
+        <input
+          class="pa2 ba w-100"
+          id="user-name"
+          name="user-name"
+          placeholder="John"
+          type="text"
+        />
+        <label
+          class="mt-2 fw-6"
+          for="user-age"
+        >
+          Age
+        </label>
+        <input
+          class="pa2 ba w-100"
+          id="user-age"
+          name="user-age"
+          placeholder="42"
+          type="text"
+        />
+        <label
+          class="mt-2 fw-6"
+          for="user-pet"
+        >
+          Pet
+        </label>
+        <input
+          class="pa2 ba w-100"
+          id="user-pet"
+          name="user-pet"
+          placeholder="dog"
+          type="text"
+        />
+        <div
+          class="mt4"
+          style="display: flex; justify-content: space-evenly;"
+        >
+          <button
+            class="b pa2 grow pointer hover-white w-40 bg-light-blue b--black-20"
+            name="save"
+          >
+            Save
+          </button>
+          <button
+            class="b pa2 grow pointer hover-white w-40 bg-light-red b--black-20"
+            name="cancel"
+          >
+            Cancel
+          </button>
+        </div>
+      </main>
+      <div
+        class="modal-close"
+      >
+        ×
+      </div>
+    </article>
+  </div>
+</div>
+`;

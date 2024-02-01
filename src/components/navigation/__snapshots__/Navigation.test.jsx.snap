@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders navigation links if not signed in 1`] = `
+<div>
+  <nav
+    style="display: flex; justify-content: flex-end;"
+  >
+    <p
+      class="f3 link dim black underline pa3 pointer"
+    >
+      Sign In
+    </p>
+    <p
+      class="f3 link dim black underline pa3 pointer"
+    >
+      Register
+    </p>
+  </nav>
+</div>
+`;
+
+exports[`renders navigation links if signed in 1`] = `
+<div>
+  <nav
+    style="display: flex; justify-content: flex-end;"
+  >
+    <div
+      class="pa4 tc"
+    >
+      <div
+        class="dropdown"
+      >
+        <span
+          aria-expanded="false"
+          aria-haspopup="true"
+          class=""
+          data-toggle="dropdown"
+        >
+          <img
+            alt="profile"
+            class="br-100 ba h3 w3 dib"
+            src="profile.png"
+          />
+        </span>
+        <div
+          aria-hidden="true"
+          class="b--transparent shadow-5 dropdown-menu dropdown-menu-end"
+          data-bs-popper="static"
+          role="menu"
+          style="margin-top: 20px; background-color: rgba(255, 255, 255, 0.5);"
+          tabindex="-1"
+        >
+          <button
+            class="dropdown-item"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            View Profile
+          </button>
+          <button
+            class="dropdown-item"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;

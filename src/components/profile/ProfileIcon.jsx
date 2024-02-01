@@ -23,7 +23,7 @@ class ProfileIcon extends React.Component {
             <div className="pa4 tc">
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle data-toggle="dropdown" tag="span">
-                        <img src="profile.png" className="br-100 ba h3 w3 dib" alt="avatar" />
+                        <img src="profile.png" className="br-100 ba h3 w3 dib" alt="profile" />
                     </DropdownToggle>
                     <DropdownMenu 
                         end

@@ -57,7 +57,7 @@ class Profile extends React.Component {
                         <h1>{firstname}</h1>
                         <h4>{`Images submitted: ${user.entries}`}</h4>
                         <p>{`Member since: ${new Date(user.joined).toLocaleDateString()}`}</p>
-                        <label className="mt-2 fw-6" htmlFor="user-name">Name</label>
+                        <label className="mt-2 fw-6" htmlFor="user-name">First Name</label>
                         <input 
                             className="pa2 ba w-100"
                             placeholder={user.firstname}

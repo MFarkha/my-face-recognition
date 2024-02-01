@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders and displays sign in form correctly 1`] = `
+<div>
+  <article
+    class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center"
+  >
+    <main
+      class="pa4 black-80"
+    >
+      <div
+        class="measure"
+      >
+        <fieldset
+          class="ba b--transparent ph0 mh0"
+          id="sign_up"
+        >
+          <legend
+            class="f2 fw6 ph0 mh0"
+          >
+            Sign In
+          </legend>
+          <div
+            class="mt3"
+          >
+            <label
+              class="db fw6 lh-copy f4"
+              for="email-address"
+            >
+              Email
+            </label>
+            <input
+              class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+              id="email-address"
+              name="email-address"
+              type="email"
+            />
+          </div>
+          <div
+            class="mv3"
+          >
+            <label
+              class="db fw6 lh-copy f4"
+              for="password"
+            >
+              Password
+            </label>
+            <input
+              class="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+              id="password"
+              name="password"
+              type="password"
+            />
+          </div>
+        </fieldset>
+        <div
+          class=""
+        >
+          <input
+            class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f4 dib"
+            type="submit"
+            value="Sign in"
+          />
+        </div>
+        <div
+          class="lh-copy mt3"
+        >
+          <p
+            class="f4 link dim black db underline pointer"
+          >
+            Register
+          </p>
+        </div>
+      </div>
+    </main>
+  </article>
+</div>
+`;

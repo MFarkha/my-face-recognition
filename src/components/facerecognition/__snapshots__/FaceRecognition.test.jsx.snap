@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders and displays a bounding box of image correctly 1`] = `
+<div>
+  <div
+    class="center ma"
+  >
+    <div
+      class="absolute mt2"
+    >
+      <img
+        alt=""
+        height="auto"
+        id="inputImage"
+        src="http://some.image"
+        width="500px"
+      />
+      <div
+        class="bounding-box"
+        id="0"
+        style="top: 0px; right: 200px; bottom: 100px; left: 0px;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders and displays an image correctly 1`] = `
+<div>
+  <div
+    class="center ma"
+  >
+    <div
+      class="absolute mt2"
+    >
+      <img
+        alt=""
+        height="auto"
+        id="inputImage"
+        src=""
+        width="500px"
+      />
+    </div>
+  </div>
+</div>
+`;
