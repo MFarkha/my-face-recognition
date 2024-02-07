@@ -39,11 +39,11 @@ class App extends Component {
     const token = window.sessionStorage.getItem('token');
     if (token) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/signin/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer: ${token}`
-        }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer: ${token}`
+          }
         })
         .then(response => response.json())
         .then(data => {
